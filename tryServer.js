@@ -9,13 +9,13 @@ http.createServer(function (req,res)
 	var urlObj = url.parse(req.url, true, false);
 	fs.readFile(ROOT_DIR + urlObj.pathname, function(err, data)
 	{
-		if(err)
-		{	
-			res.writeHead(404);
-			res.end(JSON.stringify(err));
-			console.log("ERROR");
-			return;
-		}
+		//if(err)
+		//{	
+		//	res.writeHead(404);
+		//	res.end(JSON.stringify(err));
+		//	console.log("ERROR");
+		//	return;
+		//}
 		
 		var thisname = path.extname(urlObj.pathname);
 		//console.log(thisname);
@@ -53,10 +53,18 @@ http.createServer(function (req,res)
 				res.end(JSON.stringify(jsonresult));
 			});
 
-			console.log("In REST Service");
+			//console.log("In REST Service");
 		}
 		else
 		{
+			if(err)
+      		        {
+                	        res.writeHead(404);
+            	        	res.end(JSON.stringify(err));
+                	       // console.log("ERROR");
+        	                return;
+	                }
+
 			if(thisname == ".txt")
 			{		
 				res.setHeader("Content-Type", "text/plain");
@@ -69,3 +77,4 @@ http.createServer(function (req,res)
 		}
 	});
 }).listen(80);
+
