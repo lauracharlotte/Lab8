@@ -95,7 +95,9 @@ app.post('/comment',auth, function(req, res)
 	console.log(req.user);
 	console.log("Remote User");
 	console.log(req.remoteUser);
-
+	//
+	console.log(res);
+	//
 	console.log(req.body);
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script>
 $(document).ready(function(){
 	$("#button0").click(function(){
@@ -11,26 +11,53 @@ $(document).ready(function(){
 		
 		var url = "http://52.11.38.62/comment";
 
-		$.post(url,jobj,function(data,textStatus)
-		{	
-        		$("#done").html(textStatus);
+		//FORLAB8$.post(url,jobj,function(data,textStatus)
+		//FORLAB8{	
+        	//FORLAB8	$("#done").html(textStatus);
+		//FORLAB8});
+//begining of Lab 8
+		$.post(url,jobj,function(data,textStatus){	
+		console.log("INTHEEEEEPOST");
+		jQuery.ajax({
+			//console.log("In JQueary");
+			url: url,
+			type: "POST",
+			data: jobj,
+			dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function() {
+				$("#done").html("Success");//"Success");
+			},
+			error: function(jqXHR, testStatus, errorThrown)
+			{
+				console.log(textStatus, errorThrown);
+			}
 		});
+		});
+//end of Lab 8
 	});
 	$("#button1").click(function(){
 		console.log("INBUTTON1");
-		var url = "http://52.11.38.62/comments";
-                $.getJSON(url,function(data)
+		var url = "http://52.11.38.62/comment";//use to be "comments, not comment"
+		$.getJSON(url,function(data)
                 {
+			console.log("still in button1");
                         var everything;
                         everything = "<ul>";
                         everything += "Current Comments: \n";
                         $.each(data,function(i,item)
                         {
+				console.log("in button one each");
                                 everything += "<li> Name: "+data[i].Name+" Comment: "+data[i].Comment;
                         });
                         everything += "</ul>";
+			console.log(everything);
                         $("#currentComments").html(everything);
                 });
+		
+
+		
+		console.log("If nothing else, then never got into JSON");
 	});
 });
 </script>
